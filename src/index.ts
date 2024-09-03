@@ -33,7 +33,7 @@ function startServer() {
 }
 
 function startCronJob() {
-  const scheduleExpression = process.env.CRON_EXPRESSION || "*/5 * * * *";
+  const scheduleExpression = process.env.CRON_EXPRESSION || "0 * * * *";
   const job = new CronJob(scheduleExpression, main, null, true);
   console.log(`Cron job scheduled with expression: ${scheduleExpression}`);
   return job;
