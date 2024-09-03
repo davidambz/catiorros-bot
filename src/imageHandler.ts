@@ -7,7 +7,7 @@ dotenv.config();
 export async function getURL(): Promise<string> {
   const headers = new Headers({
     "Content-Type": "application/json",
-    "x-api-key": "DEMO-API-KEY",
+    "x-api-key": process.env.API_KEY!,
   });
 
   const requestOptions: RequestInit = {
@@ -29,7 +29,7 @@ export async function getURL(): Promise<string> {
   }
 }
 
-export async function download(url: string, filepath: string = process.env.FILE_PATH!): Promise<string> {
+export async function download(url: string, filepath: string = process.env.IMAGE_PATH!): Promise<string> {
   return new Promise((resolve, reject) => {
       https.get(url, (res) => {
           if (res.statusCode === 200) {
