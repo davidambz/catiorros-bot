@@ -13,5 +13,9 @@
     "@types/node": "^22.5.2",
     "tsx": "^4.19.0",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@atproto/api": "^0.13.5",
+    "dotenv": "^16.4.5"
   }
 }
