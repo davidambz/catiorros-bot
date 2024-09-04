@@ -1,12 +1,12 @@
-import { CronJob } from "cron";
-
 import { createPost } from "./blueskyHandler";
 import { download, getURL } from "./imageHandler";
 import { startServer } from "./httpHandler";
+import { startCronJob } from "./cronHandler";
 
 async function main() {
   try {
     const imageURL = await getURL();
+    console.log(imageURL);
     await download(imageURL);
     await createPost();
   } catch (error) {
@@ -17,15 +17,8 @@ async function main() {
   }
 }
 
-function startCronJob() {
-  const scheduleExpression = process.env.CRON_EXPRESSION || "* * * * *";
-  const job = new CronJob(scheduleExpression, main, null, true);
-  console.log(`Cron job scheduled with expression: ${scheduleExpression}`);
-  return job;
-}
-
 const server = startServer();
-const cronJob = startCronJob();
+const cronJob = startCronJob(main);
 
 process.on("SIGINT", () => {
   console.log("Shutting down gracefully...");
