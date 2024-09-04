@@ -7,7 +7,7 @@ dotenv.config();
 export async function getURL(): Promise<string> {
   const headers = new Headers({
     "Content-Type": "application/json",
-    "x-api-key": process.env.API_KEY!,
+    "x-api-key": process.env.API_KEY || "DEMO-API-KEY",
   });
 
   const requestOptions: RequestInit = {
@@ -49,7 +49,7 @@ export async function download(url: string, filepath: string = process.env.IMAGE
   });
 }
 
-export async function checkFileSize(filepath: string, maxSize: number): Promise<boolean> {
+export async function checkFileSize(filepath: string = process.env.IMAGE_PATH!, maxSize: number = 900000): Promise<boolean> {
   return new Promise((resolve, reject) => {
       fs.stat(filepath, (err, stats) => {
           if (err) {
