@@ -3,6 +3,9 @@ import { download, getURL } from "./imageHandler";
 import { startServer } from "./httpHandler";
 import { startCronJob } from "./cronHandler";
 
+const server = startServer();
+const cronJob = startCronJob(main);
+
 async function main() {
   try {
     const imageURL = await getURL();
@@ -16,9 +19,6 @@ async function main() {
     );
   }
 }
-
-const server = startServer();
-const cronJob = startCronJob(main);
 
 process.on("SIGINT", () => {
   console.log("Shutting down gracefully...");
