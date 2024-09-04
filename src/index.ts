@@ -1,8 +1,8 @@
 import { CronJob } from "cron";
-import { createServer, IncomingMessage, ServerResponse } from "http";
 
 import { createPost } from "./blueskyHandler";
 import { download, getURL } from "./imageHandler";
+import { startServer } from "./httpHandler";
 
 async function main() {
   try {
@@ -17,23 +17,8 @@ async function main() {
   }
 }
 
-function startServer() {
-  const port = process.env.PORT || 4000;
-  const server = createServer((req: IncomingMessage, res: ServerResponse) => {
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/plain");
-    res.end("Hello World!\n");
-  });
-
-  server.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-  });
-
-  return server;
-}
-
 function startCronJob() {
-  const scheduleExpression = process.env.CRON_EXPRESSION || "0 * * * *";
+  const scheduleExpression = process.env.CRON_EXPRESSION || "* * * * *";
   const job = new CronJob(scheduleExpression, main, null, true);
   console.log(`Cron job scheduled with expression: ${scheduleExpression}`);
   return job;
