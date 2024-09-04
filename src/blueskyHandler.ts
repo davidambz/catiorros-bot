@@ -30,7 +30,7 @@ export async function createPost() {
           {
             alt: process.env.IMAGE_ALT_TEXT!,
             image: imageBlob.data.blob,
-          }
+          },
         ],
       },
     });

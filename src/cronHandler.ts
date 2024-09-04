@@ -1,4 +1,4 @@
-import { CronJob } from 'cron';
+import { CronJob } from "cron";
 
 export function startCronJob(func: () => void) {
   const scheduleExpression = process.env.CRON_EXPRESSION || "* * * * *";
